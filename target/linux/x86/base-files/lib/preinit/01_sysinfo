@@ -53,9 +53,12 @@ do_sysinfo_x86() {
 		esac
 	done
 
-	[ -n "$vendor" -a -n "$product" ] || return
-
 	mkdir -p /tmp/sysinfo
+
+	echo "Unknown Soft Router" > /tmp/sysinfo/model
+	sanitize_name_x86 /tmp/sysinfo/model > /tmp/sysinfo/board_name
+	
+	[ -n "$vendor" -a -n "$product" ] || return
 
 	echo "$vendor $product" > /tmp/sysinfo/model
 
